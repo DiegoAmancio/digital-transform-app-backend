@@ -1,0 +1,44 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type TokenType {
+  token: String!
+  isAdmin: Boolean!
+}
+
+type Query {
+  user: User!
+}
+
+type Mutation {
+  updateUser(input: UpdateUserInput!): String!
+  deleteUser: Boolean!
+  loginUser(input: LoginInput!): TokenType!
+}
+
+input UpdateUserInput {
+  id: ID!
+  email: String!
+  name: String!
+  password: String
+}
+
+input LoginInput {
+  reqEmail: String!
+  reqGoogleId: String!
+  reqTokenId: String!
+}
