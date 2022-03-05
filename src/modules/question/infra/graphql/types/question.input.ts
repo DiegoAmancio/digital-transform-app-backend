@@ -1,8 +1,12 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { IsNotEmpty } from 'class-validator';
 
 @InputType()
-export class CreateQuestionInput {
+@ObjectType()
+export class QuestionInputType {
+  @Field(() => ID)
+  id: string;
+
   @Field(() => [String])
   @IsNotEmpty()
   alternatives: string[];

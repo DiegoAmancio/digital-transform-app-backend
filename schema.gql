@@ -20,14 +20,24 @@ type TokenType {
   isAdmin: Boolean!
 }
 
+type QuestionType {
+  id: ID!
+  alternatives: [String!]!
+  correctAnswers: [Float!]!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type Query {
   user: User!
+  question(question: String!): QuestionType!
 }
 
 type Mutation {
   updateUser(input: UpdateUserInput!): String!
-  deleteUser: Boolean!
+  deleteUser(question: String!): Boolean!
   loginUser(input: LoginInput!): TokenType!
+  updateQuestion(input: QuestionInputType!): Boolean!
 }
 
 input UpdateUserInput {
@@ -41,4 +51,10 @@ input LoginInput {
   reqEmail: String!
   reqGoogleId: String!
   reqTokenId: String!
+}
+
+input QuestionInputType {
+  id: ID!
+  alternatives: [String!]!
+  correctAnswers: [Float!]!
 }

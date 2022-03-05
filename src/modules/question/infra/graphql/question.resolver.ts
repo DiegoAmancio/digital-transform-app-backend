@@ -4,25 +4,28 @@ import { QuestionType } from './types';
 import { GqlAuthGuard } from '@modules/auth/jwt/gql-auth.guard';
 import { IQuestionService } from '../../interfaces';
 import { I_USER_SERVICE } from '@shared/utils/constants';
-import { QuestionDTO } from '@modules/question/Dto';
+import { GqlAdmAuthGuard } from '@modules/auth/jwt/gql-auth-admin.guard';
+import { QuestionInputType } from './types/question.input';
 
 @Resolver(() => QuestionType)
-export class UserResolver {
-  private readonly logger = new Logger('User resolver');
+export class QuestionResolver {
+  private readonly logger = new Logger('Question resolver');
   constructor(
     @Inject(I_USER_SERVICE)
     private readonly questionService: IQuestionService,
   ) {}
   @Query(() => QuestionType)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAdmAuthGuard)
   async question(@Args('question') id: string): Promise<QuestionType> {
     this.logger.log('question');
 
     return this.questionService.getQuestion(id);
   }
   @Mutation(() => Boolean)
-  @UseGuards(GqlAuthGuard)
-  async updateQuestion(@Args('input') data: QuestionDTO): Promise<boolean> {
+  @UseGuards(GqlAdmAuthGuard)
+  async updateQuestion(
+    @Args('input') data: QuestionInputType,
+  ): Promise<boolean> {
     this.logger.log('Update question');
 
     return await this.questionService.updateQuestion(data);

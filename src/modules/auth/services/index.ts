@@ -65,7 +65,7 @@ export class AuthService implements IAuthService {
    * @param name user name
    * @returns object with user id and if is admin
    */
-  private readonly getUser = async (
+  getUser = async (
     sub: string,
     email: string,
     name: string,

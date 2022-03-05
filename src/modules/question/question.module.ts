@@ -1,6 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module, Provider } from '@nestjs/common';
-import { UserResolver } from './infra/graphql/question.resolver';
+import { QuestionResolver } from './infra/graphql/question.resolver';
 import { QuestionRepository } from './infra/database';
 import { QuestionService } from './services';
 import { I_USER_SERVICE } from '@shared/utils/constants';
@@ -12,7 +12,7 @@ const QuestionServiceProvider: Provider = {
 
 @Module({
   imports: [TypeOrmModule.forFeature([QuestionRepository])],
-  providers: [UserResolver, QuestionServiceProvider],
+  providers: [QuestionResolver, QuestionServiceProvider],
   exports: [QuestionServiceProvider],
 })
-export class UserModule {}
+export class QuestionModule {}

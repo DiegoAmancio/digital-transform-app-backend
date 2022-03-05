@@ -6,13 +6,13 @@ export class QuestionType {
   @Field(() => ID)
   id: string;
 
-  @Field()
+  @Field(() => [String])
   @IsNotEmpty()
   alternatives: string[];
 
-  @Field()
+  @Field(() => [Number])
   @IsNotEmpty()
-  corrects: number[];
+  correctAnswers: number[];
 
   @Field()
   @IsDate()

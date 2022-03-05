@@ -1,25 +1,26 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class QuestionMigration implements MigrationInterface {
+export class createUser1646486839786 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'questions',
+        name: 'users',
         columns: [
           {
             name: 'id',
-            type: 'uuid_generate_v4()',
+            type: 'decimal',
             isPrimary: true,
+            precision: 30,
           },
           {
-            name: 'alternatives',
-            type: 'varchar[]',
+            name: 'email',
+            type: 'varchar',
             isNullable: false,
             isUnique: true,
           },
           {
-            name: 'corrects',
-            type: 'varchar[]',
+            name: 'name',
+            type: 'varchar',
             isNullable: false,
           },
           {
@@ -33,6 +34,12 @@ export class QuestionMigration implements MigrationInterface {
             type: 'timestamptz',
             isNullable: false,
             default: 'now()',
+          },
+          {
+            name: 'isAdmin',
+            type: 'boolean',
+            isNullable: false,
+            default: false,
           },
         ],
       }),

@@ -18,7 +18,6 @@ export class UserResolver {
   @UseGuards(GqlAuthGuard)
   async user(@CurrentUser() userTokenData: UserTokenDTO): Promise<UserType> {
     this.logger.log('user');
-    console.log(userTokenData);
 
     return this.userService.getUser(userTokenData);
   }

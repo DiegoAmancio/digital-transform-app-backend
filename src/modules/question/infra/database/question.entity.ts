@@ -10,16 +10,16 @@ import { ObjectType, Field } from '@nestjs/graphql';
 @Entity('questions')
 export class Question {
   @Field()
-  @PrimaryColumn()
+  @PrimaryColumn('uuid')
   id: string;
 
-  @Field()
-  @Column('string', { array: true })
+  @Field(() => [String])
+  @Column('simple-array')
   alternatives: string[];
 
-  @Field()
+  @Field(() => [Number])
   @Column('int', { array: true })
-  corrects: number[];
+  correctAnswers: number[];
 
   @Field()
   @Column()
