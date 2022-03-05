@@ -1,6 +1,6 @@
 import { Resolver, Args, Query, Mutation } from '@nestjs/graphql';
 import { Logger, Inject, UseGuards } from '@nestjs/common';
-import { QuestionType } from './types';
+import { CreateQuestionInput, QuestionType } from './types';
 import { GqlAuthGuard } from '@modules/auth/jwt/gql-auth.guard';
 import { IQuestionService } from '../../interfaces';
 import { I_USER_SERVICE } from '@shared/utils/constants';
@@ -20,6 +20,15 @@ export class QuestionResolver {
     this.logger.log('question');
 
     return this.questionService.getQuestion(id);
+  }
+  @Mutation(() => QuestionType)
+  @UseGuards(GqlAdmAuthGuard)
+  async createQuestion(
+    @Args('input') data: CreateQuestionInput,
+  ): Promise<QuestionType> {
+    this.logger.log('Update question');
+
+    return await this.questionService.createQuestion(data);
   }
   @Mutation(() => Boolean)
   @UseGuards(GqlAdmAuthGuard)

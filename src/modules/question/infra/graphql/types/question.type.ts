@@ -6,6 +6,10 @@ export class QuestionType {
   @Field(() => ID)
   id: string;
 
+  @Field()
+  @IsNotEmpty()
+  enunciate: string;
+
   @Field(() => [String])
   @IsNotEmpty()
   alternatives: string[];

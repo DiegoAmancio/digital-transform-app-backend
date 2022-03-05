@@ -1,4 +1,5 @@
 import { AbstractRepository, EntityRepository } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 import { IQuestionRepository } from '@modules/question/interfaces';
 import { Question } from './question.entity';
 import { CreateQuestionDTO, QuestionDTO } from '@modules/question/Dto';
@@ -20,7 +21,7 @@ export class QuestionRepository
   }
   createAndSaveQuestion(data: CreateQuestionDTO): Promise<Question> {
     this.logger.log('createAndSaveQuestion: ' + JSON.stringify(data));
-    const question = this.repository.create(data);
+    const question = this.repository.create({ id: uuidv4(), ...data });
 
     return this.repository.save(question);
   }

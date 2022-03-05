@@ -10,4 +10,8 @@ export class CreateQuestionInput {
   @Field(() => [Number])
   @IsNotEmpty()
   correctAnswers: number[];
+
+  @Field()
+  @IsNotEmpty()
+  enunciate: string;
 }

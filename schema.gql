@@ -22,6 +22,7 @@ type TokenType {
 
 type QuestionType {
   id: ID!
+  enunciate: String!
   alternatives: [String!]!
   correctAnswers: [Float!]!
   created_at: DateTime!
@@ -37,6 +38,7 @@ type Mutation {
   updateUser(input: UpdateUserInput!): String!
   deleteUser(question: String!): Boolean!
   loginUser(input: LoginInput!): TokenType!
+  createQuestion(input: CreateQuestionInput!): QuestionType!
   updateQuestion(input: QuestionInputType!): Boolean!
 }
 
@@ -53,8 +55,15 @@ input LoginInput {
   reqTokenId: String!
 }
 
+input CreateQuestionInput {
+  alternatives: [String!]!
+  correctAnswers: [Float!]!
+  enunciate: String!
+}
+
 input QuestionInputType {
   id: ID!
   alternatives: [String!]!
   correctAnswers: [Float!]!
+  enunciate: String!
 }

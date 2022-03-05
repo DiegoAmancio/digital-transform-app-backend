@@ -14,4 +14,8 @@ export class QuestionInputType {
   @Field(() => [Number])
   @IsNotEmpty()
   correctAnswers: number[];
+
+  @Field()
+  @IsNotEmpty()
+  enunciate: string;
 }

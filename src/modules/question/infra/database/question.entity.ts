@@ -3,18 +3,22 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 @ObjectType()
 @Entity('questions')
 export class Question {
   @Field()
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field()
+  @Column()
+  enunciate: string;
+
   @Field(() => [String])
-  @Column('simple-array')
+  @Column('text', { array: true })
   alternatives: string[];
 
   @Field(() => [Number])

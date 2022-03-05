@@ -15,10 +15,14 @@ export class CreateQuestion1646489003782 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
+            name: 'enunciate',
+            type: 'varchar',
+            isNullable: false,
+          },
+          {
             name: 'alternatives',
             type: 'varchar[]',
             isNullable: false,
-            isUnique: true,
           },
           {
             name: 'correctAnswers',
