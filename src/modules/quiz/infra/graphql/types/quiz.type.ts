@@ -1,3 +1,5 @@
+import { QuestionDTO } from '@modules/question/Dto';
+import { QuestionType } from '@modules/question/infra/graphql/types';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { IsDate, IsNotEmpty } from 'class-validator';
 
@@ -17,4 +19,7 @@ export class QuizType {
   @Field()
   @IsDate()
   updated_at: Date;
+
+  @Field(() => [QuestionType])
+  questions: QuestionDTO[];
 }

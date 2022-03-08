@@ -7,6 +7,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { UserModule } from '@modules/user/user.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { QuestionModule } from '@modules/question/question.module';
+import { QuizModule } from '@modules/quiz/quiz.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { QuestionModule } from '@modules/question/question.module';
     UserModule,
     AuthModule,
     QuestionModule,
+    QuizModule,
   ],
   controllers: [],
   providers: [],

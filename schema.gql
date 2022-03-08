@@ -29,17 +29,28 @@ type QuestionType {
   updated_at: DateTime!
 }
 
+type QuizType {
+  id: ID!
+  name: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  questions: [QuestionType!]!
+}
+
 type Query {
   user: User!
   question(question: String!): QuestionType!
+  quiz(quiz: String!): QuizType!
 }
 
 type Mutation {
   updateUser(input: UpdateUserInput!): String!
-  deleteUser(question: String!): Boolean!
+  deleteUser(quiz: String!): Boolean!
   loginUser(input: LoginInput!): TokenType!
   createQuestion(input: CreateQuestionInput!): QuestionType!
   updateQuestion(input: QuestionInputType!): Boolean!
+  createQuiz(input: CreateQuizInput!): QuizType!
+  updateQuiz(input: QuizInputType!): Boolean!
 }
 
 input UpdateUserInput {
@@ -66,4 +77,13 @@ input QuestionInputType {
   alternatives: [String!]!
   correctAnswers: [Float!]!
   enunciate: String!
+}
+
+input CreateQuizInput {
+  name: String!
+}
+
+input QuizInputType {
+  id: ID!
+  name: String!
 }

@@ -1,2 +1,3 @@
-export * from './createQuizDTO';
-export * from './quizDTO';
+export * from './createQuiz.dto';
+export * from './quiz.dto';
+export * from './quizUpdate.dto';

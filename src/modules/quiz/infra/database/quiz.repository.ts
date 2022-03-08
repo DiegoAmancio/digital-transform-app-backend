@@ -2,7 +2,7 @@ import { AbstractRepository, EntityRepository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { IQuizRepository } from '@modules/quiz/interfaces';
 import { Quiz } from './quiz.entity';
-import { CreateQuizDTO, QuizDTO } from '@modules/Quiz/Dto';
+import { CreateQuizDTO, QuizUpdateDTO } from '@modules/Quiz/Dto';
 import { Logger } from '@nestjs/common';
 
 @EntityRepository(Quiz)
@@ -19,15 +19,20 @@ export class QuizRepository
 
     return quiz;
   }
-  createAndSaveQuiz(data: CreateQuizDTO): Promise<Quiz> {
+  async createAndSaveQuiz(data: CreateQuizDTO): Promise<Quiz> {
     this.logger.log('createAndSaveQuiz: ' + JSON.stringify(data));
     const quiz = this.repository.create({ id: uuidv4(), ...data });
+    const quiz_saved = await this.repository.save(quiz);
 
-    return this.repository.save(quiz);
+    return quiz_saved;
   }
-  async updateQuiz(data: QuizDTO): Promise<boolean> {
+  async updateQuiz(data: QuizUpdateDTO): Promise<boolean> {
     this.logger.log('updateQuiz: ' + JSON.stringify(data));
-    const result = await this.repository.update(data.id, data);
+    const { id, name } = data;
+    const result = await this.repository.update(data.id, {
+      id,
+      name,
+    });
 
     return result.affected > 0;
   }

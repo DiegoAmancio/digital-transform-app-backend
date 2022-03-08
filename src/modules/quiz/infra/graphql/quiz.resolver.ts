@@ -23,17 +23,21 @@ export class QuizResolver {
   }
   @Mutation(() => QuizType)
   @UseGuards(GqlAdmAuthGuard)
-  async createQuiz(@Args('input') data: CreateQuizInput): Promise<QuizType> {
+  async createQuiz(
+    @Args('input') { name }: CreateQuizInput,
+  ): Promise<QuizType> {
     this.logger.log('Update quiz');
 
-    return await this.quizService.createQuiz(data);
+    return await this.quizService.createQuiz({ name });
   }
   @Mutation(() => Boolean)
   @UseGuards(GqlAdmAuthGuard)
-  async updateQuiz(@Args('input') data: QuizInputType): Promise<boolean> {
+  async updateQuiz(
+    @Args('input') { id, name }: QuizInputType,
+  ): Promise<boolean> {
     this.logger.log('Update quiz');
 
-    return await this.quizService.updateQuiz(data);
+    return await this.quizService.updateQuiz({ id, name });
   }
   @Mutation(() => Boolean)
   @UseGuards(GqlAuthGuard)

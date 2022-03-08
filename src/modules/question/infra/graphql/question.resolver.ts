@@ -6,6 +6,7 @@ import { IQuestionService } from '../../interfaces';
 import { I_USER_SERVICE } from '@shared/utils/constants';
 import { GqlAdmAuthGuard } from '@modules/auth/jwt/gql-auth-admin.guard';
 import { QuestionInputType } from './types/question.input';
+import { QuestionDTO } from '@modules/question/Dto';
 
 @Resolver(() => QuestionType)
 export class QuestionResolver {
@@ -33,11 +34,14 @@ export class QuestionResolver {
   @Mutation(() => Boolean)
   @UseGuards(GqlAdmAuthGuard)
   async updateQuestion(
-    @Args('input') data: QuestionInputType,
+    @Args('input')
+    { id, enunciate, correctAnswers, alternatives }: QuestionInputType,
   ): Promise<boolean> {
     this.logger.log('Update question');
 
-    return await this.questionService.updateQuestion(data);
+    return await this.questionService.updateQuestion(
+      new QuestionDTO(id, enunciate, alternatives, correctAnswers),
+    );
   }
   @Mutation(() => Boolean)
   @UseGuards(GqlAuthGuard)

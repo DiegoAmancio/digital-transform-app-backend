@@ -1,2 +1,3 @@
-export * from './createQuestionDTO';
-export * from './questionDTO';
+export * from './createQuestion.dto';
+export * from './question.dto';
+export * from './questionUpdate.dto';

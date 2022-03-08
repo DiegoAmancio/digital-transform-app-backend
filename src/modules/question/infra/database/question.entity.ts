@@ -4,8 +4,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
+  ManyToOne,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
+import { Quiz } from '@modules/quiz/infra/database';
 @ObjectType()
 @Entity('questions')
 export class Question {
@@ -34,4 +36,7 @@ export class Question {
   @Column()
   @UpdateDateColumn()
   updated_at: Date;
+
+  @ManyToOne(() => Quiz, (quiz) => quiz.questions)
+  quiz: Quiz;
 }
