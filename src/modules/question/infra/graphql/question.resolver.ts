@@ -35,18 +35,18 @@ export class QuestionResolver {
   @UseGuards(GqlAdmAuthGuard)
   async updateQuestion(
     @Args('input')
-    { id, enunciate, correctAnswers, alternatives }: QuestionInputType,
+    { id, enunciate, correctAnswers, alternatives, quizId }: QuestionInputType,
   ): Promise<boolean> {
     this.logger.log('Update question');
 
     return await this.questionService.updateQuestion(
-      new QuestionDTO(id, enunciate, alternatives, correctAnswers),
+      new QuestionDTO(id, enunciate, alternatives, correctAnswers, quizId),
     );
   }
   @Mutation(() => Boolean)
   @UseGuards(GqlAuthGuard)
-  async deleteUser(@Args('question') id: string): Promise<boolean> {
-    this.logger.log('Delete user');
+  async deleteQuestion(@Args('question') id: string): Promise<boolean> {
+    this.logger.log('Delete question');
 
     return await this.questionService.deleteQuestion(id);
   }

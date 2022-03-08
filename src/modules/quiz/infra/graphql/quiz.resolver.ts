@@ -3,7 +3,7 @@ import { Logger, Inject, UseGuards } from '@nestjs/common';
 import { CreateQuizInput, QuizType } from './types';
 import { GqlAuthGuard } from '@modules/auth/jwt/gql-auth.guard';
 import { IQuizService } from '../../interfaces';
-import { I_USER_SERVICE } from '@shared/utils/constants';
+import { I_QUIZ_SERVICE } from '@shared/utils/constants';
 import { GqlAdmAuthGuard } from '@modules/auth/jwt/gql-auth-admin.guard';
 import { QuizInputType } from './types/quiz.input';
 
@@ -11,7 +11,7 @@ import { QuizInputType } from './types/quiz.input';
 export class QuizResolver {
   private readonly logger = new Logger('Quiz resolver');
   constructor(
-    @Inject(I_USER_SERVICE)
+    @Inject(I_QUIZ_SERVICE)
     private readonly quizService: IQuizService,
   ) {}
   @Query(() => QuizType)

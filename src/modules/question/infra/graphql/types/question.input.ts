@@ -18,4 +18,8 @@ export class QuestionInputType {
   @Field()
   @IsNotEmpty()
   enunciate: string;
+
+  @Field()
+  @IsNotEmpty()
+  quizId: string;
 }

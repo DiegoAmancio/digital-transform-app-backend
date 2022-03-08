@@ -3,10 +3,10 @@ import { Module, Provider } from '@nestjs/common';
 import { QuizResolver } from './infra/graphql/quiz.resolver';
 import { QuizRepository } from './infra/database';
 import { QuizService } from './services';
-import { I_USER_SERVICE } from '@shared/utils/constants';
+import { I_QUIZ_SERVICE } from '@shared/utils/constants';
 
 const QuizServiceProvider: Provider = {
-  provide: I_USER_SERVICE,
+  provide: I_QUIZ_SERVICE,
   useClass: QuizService,
 };
 

@@ -49,6 +49,7 @@ type Mutation {
   loginUser(input: LoginInput!): TokenType!
   createQuestion(input: CreateQuestionInput!): QuestionType!
   updateQuestion(input: QuestionInputType!): Boolean!
+  deleteQuestion(question: String!): Boolean!
   createQuiz(input: CreateQuizInput!): QuizType!
   updateQuiz(input: QuizInputType!): Boolean!
 }
@@ -70,6 +71,7 @@ input CreateQuestionInput {
   alternatives: [String!]!
   correctAnswers: [Float!]!
   enunciate: String!
+  quizId: String!
 }
 
 input QuestionInputType {
@@ -77,6 +79,7 @@ input QuestionInputType {
   alternatives: [String!]!
   correctAnswers: [Float!]!
   enunciate: String!
+  quizId: String!
 }
 
 input CreateQuizInput {

@@ -24,6 +24,12 @@ export class QuizService implements IQuizService {
 
     return this.mapperQuizEntityToDTO(quiz);
   }
+  async getQuizFromDatabase(id: string): Promise<Quiz> {
+    this.logger.log('getQuizFromDatabase');
+    const quiz = await this.quizRepository.getQuiz(id);
+
+    return quiz;
+  }
   updateQuiz(data: QuizUpdateDTO): Promise<boolean> {
     this.logger.log('updateQuiz');
     return this.quizRepository.updateQuiz(data);
@@ -46,9 +52,9 @@ export class QuizService implements IQuizService {
             question.enunciate,
             question.alternatives,
             question.correctAnswers,
+            question.quiz.id,
             question.created_at,
             question.updated_at,
-            question.quiz.id,
           );
         })
       : null;

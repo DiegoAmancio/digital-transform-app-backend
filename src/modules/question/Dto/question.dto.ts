@@ -2,7 +2,6 @@ import { CreateQuestionDTO } from '.';
 
 export class QuestionDTO extends CreateQuestionDTO {
   public id: string;
-  public quiz: string;
   public created_at: Date;
   public updated_at: Date;
   constructor(
@@ -10,13 +9,12 @@ export class QuestionDTO extends CreateQuestionDTO {
     enunciate: string,
     alternatives: string[],
     correctAnswers: number[],
+    quizId?: string,
     created_at?: Date,
     updated_at?: Date,
-    quiz?: string,
   ) {
-    super(alternatives, correctAnswers, enunciate);
+    super(alternatives, correctAnswers, enunciate, quizId);
     this.id = id;
-    this.quiz = quiz;
     this.created_at = created_at;
     this.updated_at = updated_at;
   }
