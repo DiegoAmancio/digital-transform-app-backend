@@ -1,4 +1,4 @@
-export class CreateUserDTO {
+export class UpdateUserDTO {
   id: string;
 
   email: string;

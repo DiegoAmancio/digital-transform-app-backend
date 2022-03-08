@@ -1,11 +1,14 @@
-export const mockCreateUserParams = {
-  email: 'topEmail@gmail.com',
-  name: 'eae man',
-  password: '2',
-};
+import { CreateUserDTO } from '../Dto';
+
+export const mockCreateUserParams: CreateUserDTO = new CreateUserDTO(
+  '438fd27e-9870-4bdb-8726-47625545670d',
+  'topEmail@gmail.com',
+  'toptopado',
+);
+
 export const userMock = {
   ...mockCreateUserParams,
-  id: '438fd27e-9870-4bdb-8726-47625545670d',
+  isAdmin: false,
   created_at: '2021-09-29T23:40:24.198Z',
   updated_at: '2021-09-29T23:40:24.198Z',
 };
@@ -17,4 +20,8 @@ export const updateUserData = {
 };
 
 export const userMockUpdated = Object.assign(userMock, updateUserData);
-export const tokenData = { id: userMock.id, email: userMock.email };
+export const tokenData = {
+  id: userMock.id,
+  email: userMock.email,
+  isAdmin: userMock.isAdmin,
+};

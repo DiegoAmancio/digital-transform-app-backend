@@ -13,7 +13,4 @@ export class UpdateUserInput {
   @Field()
   @IsNotEmpty()
   name: string;
-
-  @Field({ nullable: true })
-  password: string;
 }
