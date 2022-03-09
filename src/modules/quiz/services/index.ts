@@ -1,9 +1,14 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { IQuizRepository, IQuizService } from '../interfaces';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Quiz, QuizRepository } from '../infra/database';
 import { CreateQuizDTO, QuizDTO, QuizUpdateDTO } from '../Dto';
 import { QuestionDTO } from '@modules/question/Dto';
+import {
+  QUIZ_UPDATED,
+  QUIZ_NOT_FOUND,
+  QUIZ_DELETED,
+} from '@shared/utils/constants';
 
 @Injectable()
 export class QuizService implements IQuizService {
@@ -21,7 +26,9 @@ export class QuizService implements IQuizService {
   async getQuiz(id: string): Promise<QuizDTO> {
     this.logger.log('getQuiz');
     const quiz = await this.quizRepository.getQuiz(id);
-
+    if (!quiz) {
+      throw new NotFoundException(QUIZ_NOT_FOUND);
+    }
     return this.mapperQuizEntityToDTO(quiz);
   }
   async getQuizFromDatabase(id: string): Promise<Quiz> {
@@ -30,13 +37,23 @@ export class QuizService implements IQuizService {
 
     return quiz;
   }
-  updateQuiz(data: QuizUpdateDTO): Promise<boolean> {
+  async updateQuiz(data: QuizUpdateDTO): Promise<string> {
     this.logger.log('updateQuiz');
-    return this.quizRepository.updateQuiz(data);
+    const response = await this.quizRepository.updateQuiz(data);
+
+    if (!response) {
+      throw new NotFoundException(QUIZ_NOT_FOUND);
+    }
+    return QUIZ_UPDATED;
   }
-  deleteQuiz(id: string): Promise<boolean> {
+  async deleteQuiz(id: string): Promise<string> {
     this.logger.log('deleteQuiz');
-    return this.quizRepository.deleteQuiz(id);
+    const response = await this.quizRepository.deleteQuiz(id);
+
+    if (!response) {
+      throw new NotFoundException(QUIZ_NOT_FOUND);
+    }
+    return QUIZ_DELETED;
   }
   private mapperQuizEntityToDTO({
     id,

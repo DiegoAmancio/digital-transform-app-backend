@@ -5,6 +5,6 @@ export interface IQuizService {
   createQuiz(data: CreateQuizDTO): Promise<QuizDTO>;
   getQuiz(id: string): Promise<QuizDTO>;
   getQuizFromDatabase(id: string): Promise<Quiz>;
-  updateQuiz(data: QuizUpdateDTO): Promise<boolean>;
-  deleteQuiz(id: string): Promise<boolean>;
+  updateQuiz(data: QuizUpdateDTO): Promise<string>;
+  deleteQuiz(id: string): Promise<string>;
 }
