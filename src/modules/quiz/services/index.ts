@@ -34,7 +34,9 @@ export class QuizService implements IQuizService {
   async getQuizFromDatabase(id: string): Promise<Quiz> {
     this.logger.log('getQuizFromDatabase');
     const quiz = await this.quizRepository.getQuiz(id);
-
+    if (!quiz) {
+      throw new NotFoundException(QUIZ_NOT_FOUND);
+    }
     return quiz;
   }
   async updateQuiz(data: QuizUpdateDTO): Promise<string> {

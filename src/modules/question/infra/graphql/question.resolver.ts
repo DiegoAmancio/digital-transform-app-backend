@@ -36,7 +36,7 @@ export class QuestionResolver {
   async updateQuestion(
     @Args('input')
     { id, enunciate, correctAnswers, alternatives, quizId }: QuestionInputType,
-  ): Promise<boolean> {
+  ): Promise<string> {
     this.logger.log('Update question');
 
     return await this.questionService.updateQuestion(
@@ -45,7 +45,7 @@ export class QuestionResolver {
   }
   @Mutation(() => Boolean)
   @UseGuards(GqlAuthGuard)
-  async deleteQuestion(@Args('question') id: string): Promise<boolean> {
+  async deleteQuestion(@Args('question') id: string): Promise<string> {
     this.logger.log('Delete question');
 
     return await this.questionService.deleteQuestion(id);

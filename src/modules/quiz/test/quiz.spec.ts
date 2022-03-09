@@ -1,5 +1,5 @@
 import { QuizRepository } from '@modules/quiz/infra/database';
-import { NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { QUIZ_DELETED, QUIZ_UPDATED } from '@shared/utils/constants';
 import { IQuizRepository } from '../interfaces';
