@@ -3,16 +3,16 @@ import { Logger, Inject, UseGuards } from '@nestjs/common';
 import { CreateQuestionInput, QuestionType } from './types';
 import { GqlAuthGuard } from '@modules/auth/jwt/gql-auth.guard';
 import { IQuestionService } from '../../interfaces';
-import { I_USER_SERVICE } from '@shared/utils/constants';
 import { GqlAdmAuthGuard } from '@modules/auth/jwt/gql-auth-admin.guard';
 import { QuestionInputType } from './types/question.input';
 import { QuestionDTO } from '@modules/question/Dto';
+import { I_QUESTION_SERVICE } from '@shared/utils/constants';
 
 @Resolver(() => QuestionType)
 export class QuestionResolver {
   private readonly logger = new Logger('Question resolver');
   constructor(
-    @Inject(I_USER_SERVICE)
+    @Inject(I_QUESTION_SERVICE)
     private readonly questionService: IQuestionService,
   ) {}
   @Query(() => QuestionType)
