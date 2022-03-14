@@ -15,7 +15,7 @@ export class QuizResolver {
     private readonly quizService: IQuizService,
   ) {}
   @Query(() => QuizType)
-  @UseGuards(GqlAdmAuthGuard)
+  @UseGuards(GqlAuthGuard)
   async quiz(@Args('quiz') id: string): Promise<QuizType> {
     this.logger.log('quiz');
 
@@ -30,7 +30,7 @@ export class QuizResolver {
 
     return await this.quizService.createQuiz({ name });
   }
-  @Mutation(() => Boolean)
+  @Mutation(() => String)
   @UseGuards(GqlAdmAuthGuard)
   async updateQuiz(
     @Args('input') { id, name }: QuizInputType,
@@ -39,7 +39,7 @@ export class QuizResolver {
 
     return await this.quizService.updateQuiz({ id, name });
   }
-  @Mutation(() => Boolean)
+  @Mutation(() => String)
   @UseGuards(GqlAuthGuard)
   async deleteUser(@Args('quiz') id: string): Promise<string> {
     this.logger.log('Delete user');

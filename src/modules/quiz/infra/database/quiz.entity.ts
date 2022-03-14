@@ -5,10 +5,10 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   OneToMany,
-  JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Question } from '@modules/question/infra/database';
+import { UserQuizResponse } from '@modules/userQuizResponse/infra/database';
 @ObjectType()
 @Entity('quizes')
 export class Quiz {
@@ -32,4 +32,7 @@ export class Quiz {
 
   @OneToMany(() => Question, (question) => question.quiz)
   questions: Question[];
+
+  @OneToMany(() => UserQuizResponse, (response) => response.quiz)
+  responses: Question[];
 }
