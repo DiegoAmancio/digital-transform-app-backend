@@ -1,8 +1,8 @@
 export class CreateUserQuizResponseDTO {
-  responses: number[];
+  responses: string[];
   lastQuestion: number;
-  complete: boolean;
   quiz: string;
   created_at: Date;
   updated_at: Date;
+  complete: boolean;
 }

@@ -1,15 +1,19 @@
 import { Resolver, Args, Query, Mutation } from '@nestjs/graphql';
 import { Logger, Inject, UseGuards } from '@nestjs/common';
-import { QuizInputUpdateType, UserQuizResponseType } from './types';
+import {
+  UserQuizResponseInputType,
+  QuizInputUpdateType,
+  UserQuizResponseType,
+} from './types';
 import { GqlAuthGuard } from '@modules/auth/jwt/gql-auth.guard';
 import { IUserQuizResponseService } from '../../interfaces';
-import { I_QUIZ_SERVICE } from '@shared/utils/constants';
+import { I_USER_QUIZ_SERVICE } from '@shared/utils/constants';
 
 @Resolver(() => UserQuizResponseType)
 export class QuizResolver {
   private readonly logger = new Logger('Quiz resolver');
   constructor(
-    @Inject(I_QUIZ_SERVICE)
+    @Inject(I_USER_QUIZ_SERVICE)
     private readonly quizService: IUserQuizResponseService,
   ) {}
   @Query(() => UserQuizResponseType)
@@ -24,11 +28,26 @@ export class QuizResolver {
   @Mutation(() => UserQuizResponseType)
   @UseGuards(GqlAuthGuard)
   async createUserQuizResponse(
-    @Args('input') data: UserQuizResponseType,
+    @Args('input')
+    {
+      responses,
+      lastQuestion,
+      quiz,
+      created_at,
+      updated_at,
+      complete,
+    }: UserQuizResponseInputType,
   ): Promise<UserQuizResponseType> {
     this.logger.log('Update quiz');
 
-    return await this.quizService.createUserQuizResponse(data);
+    return await this.quizService.createUserQuizResponse({
+      responses,
+      lastQuestion,
+      quiz,
+      created_at,
+      updated_at,
+      complete,
+    });
   }
   @Mutation(() => String)
   @UseGuards(GqlAuthGuard)

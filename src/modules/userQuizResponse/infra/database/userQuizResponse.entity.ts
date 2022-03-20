@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Quiz } from '@modules/quiz/infra/database';
+import { QuizType } from '@modules/quiz/infra/graphql/types';
 
 @ObjectType()
 @Entity('userQuizResponses')
@@ -16,9 +17,9 @@ export class UserQuizResponse {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field()
+  @Field(() => [String])
   @Column('simple-array')
-  responses: number[];
+  responses: string[];
 
   @Field()
   @Column()
@@ -38,7 +39,7 @@ export class UserQuizResponse {
   @UpdateDateColumn()
   created_at: Date;
 
-  @Field()
+  @Field(() => QuizType)
   @ManyToOne(() => Quiz, (quiz) => quiz.responses)
   quiz: Quiz;
 }

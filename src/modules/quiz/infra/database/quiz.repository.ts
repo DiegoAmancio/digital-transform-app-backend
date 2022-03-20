@@ -15,7 +15,10 @@ export class QuizRepository
   async getQuiz(id: string): Promise<Quiz> {
     this.logger.log('getQuiz: ' + id);
 
-    const quiz = await this.repository.findOne(id);
+    const quiz = await this.repository.findOne(id, {
+      relations: ['questions'],
+    });
+    console.log(quiz);
 
     return quiz;
   }

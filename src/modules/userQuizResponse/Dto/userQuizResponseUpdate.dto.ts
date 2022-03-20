@@ -1,6 +1,6 @@
 export class UserQuizResponseUpdateDTO {
   id: string;
-  responses: number[];
+  responses: string[];
   lastQuestion: number;
   complete: boolean;
   created_at: Date;

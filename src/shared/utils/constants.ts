@@ -12,3 +12,4 @@ export const QUESTION_DELETED = 'question deleted';
 export const USER_QUIZ_RESPONSE_UPDATED = 'user quiz response updated';
 export const USER_QUIZ_RESPONSE_NOT_FOUND = 'user quiz response not found';
 export const USER_QUIZ_RESPONSE_DELETED = 'user quiz response deleted';
+export const I_USER_QUIZ_SERVICE = 'IUserQuizService';

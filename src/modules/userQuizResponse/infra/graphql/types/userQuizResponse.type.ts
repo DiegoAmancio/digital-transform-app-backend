@@ -1,5 +1,3 @@
-import { QuestionDTO } from '@modules/question/Dto';
-import { QuestionType } from '@modules/question/infra/graphql/types';
 import { Field, ID, Int, ObjectType } from '@nestjs/graphql';
 import { IsDate, IsNotEmpty } from 'class-validator';
 
@@ -18,7 +16,7 @@ export class UserQuizResponseType {
 
   @Field(() => [Int])
   @IsNotEmpty()
-  responses: number[];
+  responses: string[];
 
   @Field()
   @IsDate()

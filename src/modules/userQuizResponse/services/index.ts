@@ -13,7 +13,6 @@ import {
   UserQuizResponseDTO,
   UserQuizResponseUpdateDTO,
 } from '../Dto';
-import { QuestionDTO } from '@modules/question/Dto';
 import {
   USER_QUIZ_RESPONSE_UPDATED,
   USER_QUIZ_RESPONSE_NOT_FOUND,

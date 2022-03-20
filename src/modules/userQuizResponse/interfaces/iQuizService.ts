@@ -1,9 +1,13 @@
-import { UserQuizResponseDTO, UserQuizResponseUpdateDTO } from '../Dto';
+import {
+  CreateUserQuizResponseDTO,
+  UserQuizResponseDTO,
+  UserQuizResponseUpdateDTO,
+} from '../Dto';
 import { UserQuizResponse } from '../infra/database';
 
 export interface IUserQuizResponseService {
   createUserQuizResponse(
-    data: UserQuizResponseDTO,
+    data: CreateUserQuizResponseDTO,
   ): Promise<UserQuizResponseDTO>;
   getUserQuizResponse(id: string): Promise<UserQuizResponseDTO>;
   getUserQuizResponseFromDatabase(id: string): Promise<UserQuizResponse>;

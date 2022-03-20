@@ -8,6 +8,7 @@ import { UserModule } from '@modules/user/user.module';
 import { AuthModule } from '@modules/auth/auth.module';
 import { QuestionModule } from '@modules/question/question.module';
 import { QuizModule } from '@modules/quiz/quiz.module';
+import { UserQuizResponseModule } from '@modules/userQuizResponse/userQuizResponse.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { QuizModule } from '@modules/quiz/quiz.module';
     AuthModule,
     QuestionModule,
     QuizModule,
+    UserQuizResponseModule,
   ],
   controllers: [],
   providers: [],
