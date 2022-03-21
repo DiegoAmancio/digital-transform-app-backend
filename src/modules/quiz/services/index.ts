@@ -64,19 +64,20 @@ export class QuizService implements IQuizService {
     created_at,
     updated_at,
   }: Quiz): QuizDTO {
-    const questionsMapped = questions
-      ? questions.map((question) => {
-          return new QuestionDTO(
-            question.id,
-            question.enunciate,
-            question.alternatives,
-            question.correctAnswers,
-            question.quiz.id,
-            question.created_at,
-            question.updated_at,
-          );
-        })
-      : null;
+    const questionsMapped =
+      questions && questions.length > 0
+        ? questions.map((question) => {
+            return new QuestionDTO(
+              question.id,
+              question.enunciate,
+              question.alternatives,
+              question.correctAnswers,
+              null,
+              question.created_at,
+              question.updated_at,
+            );
+          })
+        : null;
     const quiz: QuizDTO = {
       id,
       name,

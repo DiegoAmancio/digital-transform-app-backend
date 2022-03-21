@@ -9,3 +9,7 @@ export const QUIZ_DELETED = 'quiz deleted';
 export const QUESTION_NOT_FOUND = 'question not found';
 export const QUESTION_UPDATED = 'question updated';
 export const QUESTION_DELETED = 'question deleted';
+export const USER_QUIZ_RESPONSE_UPDATED = 'user quiz response updated';
+export const USER_QUIZ_RESPONSE_NOT_FOUND = 'user quiz response not found';
+export const USER_QUIZ_RESPONSE_DELETED = 'user quiz response deleted';
+export const I_USER_QUIZ_SERVICE = 'IUserQuizService';

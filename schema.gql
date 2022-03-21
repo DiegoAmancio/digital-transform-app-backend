@@ -37,21 +37,33 @@ type QuizType {
   questions: [QuestionType!]!
 }
 
+type UserQuizResponseType {
+  id: ID!
+  lastQuestion: Int!
+  complete: Boolean!
+  responses: [Int!]!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 type Query {
   user: User!
   question(question: String!): QuestionType!
   quiz(quiz: String!): QuizType!
+  UserQuizResponse(quiz: String!): UserQuizResponseType!
 }
 
 type Mutation {
   updateUser(input: UpdateUserInput!): String!
-  deleteUser(quiz: String!): Boolean!
+  deleteUser(quiz: String!): String!
   loginUser(input: LoginInput!): TokenType!
   createQuestion(input: CreateQuestionInput!): QuestionType!
   updateQuestion(input: QuestionInputType!): Boolean!
   deleteQuestion(question: String!): Boolean!
   createQuiz(input: CreateQuizInput!): QuizType!
-  updateQuiz(input: QuizInputType!): Boolean!
+  updateQuiz(input: QuizInputType!): String!
+  createUserQuizResponse(input: UserQuizResponseInputType!): UserQuizResponseType!
+  updateUserQuizResponse(input: QuizInputUpdateType!): String!
 }
 
 input UpdateUserInput {
@@ -88,4 +100,20 @@ input CreateQuizInput {
 input QuizInputType {
   id: ID!
   name: String!
+}
+
+input UserQuizResponseInputType {
+  lastQuestion: Int!
+  responses: [Float!]!
+  complete: Boolean!
+  quiz: String!
+}
+
+input QuizInputUpdateType {
+  id: ID!
+  lastQuestion: Int!
+  complete: Boolean!
+  responses: [Int!]!
+  created_at: DateTime!
+  updated_at: DateTime!
 }
