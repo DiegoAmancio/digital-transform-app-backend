@@ -18,7 +18,6 @@ export class QuizRepository
     const quiz = await this.repository.findOne(id, {
       relations: ['questions'],
     });
-    console.log(quiz);
 
     return quiz;
   }

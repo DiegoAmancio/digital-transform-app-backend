@@ -5,7 +5,6 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   OneToMany,
-  JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Question } from '@modules/question/infra/database';

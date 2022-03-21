@@ -6,9 +6,8 @@ import {
   CreateUserQuizResponseDTO,
   UserQuizResponseUpdateDTO,
 } from '@modules/UserQuizResponse/Dto';
-import { Inject, Logger } from '@nestjs/common';
-import { I_QUIZ_SERVICE } from '@shared/utils/constants';
-import { IQuizService } from '@modules/quiz/interfaces';
+import { Logger } from '@nestjs/common';
+import { Quiz } from '@modules/quiz/infra/database';
 
 @EntityRepository(UserQuizResponse)
 export class UserQuizResponseRepository
@@ -16,12 +15,7 @@ export class UserQuizResponseRepository
   implements IUserQuizResponseRepository
 {
   private readonly logger = new Logger('UserQuizResponse repository');
-  constructor(
-    @Inject(I_QUIZ_SERVICE)
-    private readonly quizService: IQuizService,
-  ) {
-    super();
-  }
+
   async getUserQuizResponse(id: string): Promise<UserQuizResponse> {
     this.logger.log('getUserQuizResponse: ' + id);
 
@@ -31,20 +25,21 @@ export class UserQuizResponseRepository
   }
   async createAndSaveUserQuizResponse(
     data: CreateUserQuizResponseDTO,
+    quiz: Quiz,
   ): Promise<UserQuizResponse> {
     this.logger.log('createAndSaveUserQuizResponse: ' + JSON.stringify(data));
-    const { complete, lastQuestion, quiz, responses } = data;
-    const quizFk = await this.quizService.getQuizFromDatabase(quiz);
-    const UserQuizResponse = this.repository.create({
+    const { complete, lastQuestion, responses } = data;
+
+    const userQuizResponse = this.repository.create({
       id: uuidv4(),
-      responses: responses,
+      responses,
       complete,
       lastQuestion,
-      quiz: quizFk,
+      quiz,
     });
-    const UserQuizResponse_saved = await this.repository.save(UserQuizResponse);
+    console.log(userQuizResponse);
 
-    return UserQuizResponse_saved;
+    return this.repository.save(userQuizResponse);
   }
   async updateUserQuizResponse(
     data: UserQuizResponseUpdateDTO,

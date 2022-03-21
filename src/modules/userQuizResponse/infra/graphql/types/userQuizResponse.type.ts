@@ -16,7 +16,7 @@ export class UserQuizResponseType {
 
   @Field(() => [Int])
   @IsNotEmpty()
-  responses: string[];
+  responses: number[];
 
   @Field()
   @IsDate()
@@ -25,8 +25,4 @@ export class UserQuizResponseType {
   @Field()
   @IsDate()
   updated_at: Date;
-
-  @Field()
-  @IsNotEmpty()
-  quiz: string;
 }

@@ -15,11 +15,11 @@ export class QuestionRepository
   async getQuestion(id: string): Promise<Question> {
     this.logger.log('getQuestion: ' + id);
 
-    const question = await this.repository.find({
+    const question = await this.repository.findOne(id, {
       relations: ['quiz'],
     });
 
-    return question[0];
+    return question;
   }
   createAndSaveQuestion(
     data: CreateQuestionDTO,

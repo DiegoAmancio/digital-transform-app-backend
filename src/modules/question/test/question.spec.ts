@@ -9,21 +9,12 @@ import {
   mockCreateQuestionParams,
   updateQuestionData,
 } from './question.mock';
+import { quizMock } from '@modules/quiz/test/quiz.mock';
 import {
-  mockCreateQuizParams,
-  quizMock,
-  quizMockUpdated,
-  updateQuizData,
-} from '@modules/quiz/test/quiz.mock';
-import { QuizRepository } from '@modules/quiz/infra/database';
-import { IQuizRepository, IQuizService } from '@modules/quiz/interfaces';
-import {
-  I_QUESTION_SERVICE,
   I_QUIZ_SERVICE,
   QUESTION_DELETED,
   QUESTION_UPDATED,
 } from '@shared/utils/constants';
-import { QuizService } from '@modules/quiz/services';
 
 describe('QuestionService', () => {
   let service: QuestionService;

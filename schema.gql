@@ -44,7 +44,6 @@ type UserQuizResponseType {
   responses: [Int!]!
   created_at: DateTime!
   updated_at: DateTime!
-  quiz: String!
 }
 
 type Query {
@@ -105,10 +104,8 @@ input QuizInputType {
 
 input UserQuizResponseInputType {
   lastQuestion: Int!
-  responses: [String!]!
-  created_at: DateTime!
+  responses: [Float!]!
   complete: Boolean!
-  updated_at: DateTime!
   quiz: String!
 }
 

@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { IsDate, IsNotEmpty } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class UserQuizResponseInputType {
@@ -7,21 +7,13 @@ export class UserQuizResponseInputType {
   @IsNotEmpty()
   lastQuestion: number;
 
-  @Field(() => [String])
+  @Field(() => [Number])
   @IsNotEmpty()
-  responses: string[];
-
-  @Field()
-  @IsDate()
-  created_at: Date;
+  responses: number[];
 
   @Field(() => Boolean)
   @IsNotEmpty()
   complete: boolean;
-
-  @Field()
-  @IsDate()
-  updated_at: Date;
 
   @Field()
   @IsNotEmpty()

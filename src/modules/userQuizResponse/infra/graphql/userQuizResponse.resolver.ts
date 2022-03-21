@@ -10,7 +10,7 @@ import { IUserQuizResponseService } from '../../interfaces';
 import { I_USER_QUIZ_SERVICE } from '@shared/utils/constants';
 
 @Resolver(() => UserQuizResponseType)
-export class QuizResolver {
+export class UserResponseQuizResolver {
   private readonly logger = new Logger('Quiz resolver');
   constructor(
     @Inject(I_USER_QUIZ_SERVICE)
@@ -29,14 +29,7 @@ export class QuizResolver {
   @UseGuards(GqlAuthGuard)
   async createUserQuizResponse(
     @Args('input')
-    {
-      responses,
-      lastQuestion,
-      quiz,
-      created_at,
-      updated_at,
-      complete,
-    }: UserQuizResponseInputType,
+    { responses, lastQuestion, quiz, complete }: UserQuizResponseInputType,
   ): Promise<UserQuizResponseType> {
     this.logger.log('Update quiz');
 
@@ -44,8 +37,6 @@ export class QuizResolver {
       responses,
       lastQuestion,
       quiz,
-      created_at,
-      updated_at,
       complete,
     });
   }

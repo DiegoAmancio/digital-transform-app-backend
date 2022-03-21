@@ -1,14 +1,12 @@
 import {
   Entity,
   Column,
-  CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   ManyToOne,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Quiz } from '@modules/quiz/infra/database';
-import { QuizType } from '@modules/quiz/infra/graphql/types';
 
 @ObjectType()
 @Entity('userQuizResponses')
@@ -17,9 +15,9 @@ export class UserQuizResponse {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => [String])
-  @Column('simple-array')
-  responses: string[];
+  @Field(() => [Number])
+  @Column('int', { array: true })
+  responses: number[];
 
   @Field()
   @Column()
@@ -39,7 +37,6 @@ export class UserQuizResponse {
   @UpdateDateColumn()
   created_at: Date;
 
-  @Field(() => QuizType)
   @ManyToOne(() => Quiz, (quiz) => quiz.responses)
   quiz: Quiz;
 }

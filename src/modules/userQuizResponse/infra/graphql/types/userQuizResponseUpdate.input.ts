@@ -16,7 +16,7 @@ export class QuizInputUpdateType {
 
   @Field(() => [Int])
   @IsNotEmpty()
-  responses: string[];
+  responses: number[];
 
   @Field()
   @IsDate()
