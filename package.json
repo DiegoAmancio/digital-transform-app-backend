@@ -82,7 +82,7 @@
     "jest": "^27.4.7",
     "lint-staged": "^12.1.7",
     "prettier": "^2.5.1",
-    "supertest": "^6.1.6",
+    "supertest": "^6.1.6"
   },
   "lint-staged": {
     "*.{ts,js}": [
