@@ -1,11 +1,11 @@
 import { AbstractRepository, EntityRepository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { IUserQuizResponseRepository } from '@modules/UserQuizResponse/interfaces';
+import { IUserQuizResponseRepository } from '@modules/userQuizResponse/interfaces';
 import { UserQuizResponse } from './userQuizResponse.entity';
 import {
   CreateUserQuizResponseDTO,
   UserQuizResponseUpdateDTO,
-} from '@modules/UserQuizResponse/Dto';
+} from '@modules/userQuizResponse/Dto';
 import { Logger } from '@nestjs/common';
 import { Quiz } from '@modules/quiz/infra/database';
 
