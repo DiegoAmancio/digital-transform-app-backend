@@ -2,7 +2,7 @@ import { AbstractRepository, EntityRepository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { IQuizRepository } from '@modules/quiz/interfaces';
 import { Quiz } from './quiz.entity';
-import { CreateQuizDTO, QuizUpdateDTO } from '@modules/Quiz/Dto';
+import { CreateQuizDTO, QuizUpdateDTO } from '@modules/quiz/Dto';
 import { Logger } from '@nestjs/common';
 
 @EntityRepository(Quiz)

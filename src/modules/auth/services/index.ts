@@ -73,7 +73,7 @@ export class AuthService implements IAuthService {
     const { id, isAdmin } = await this.userService
       .getUser({ id: sub, isAdmin: false, email: email })
       .catch(async (error: HttpException) => {
-        if (error.getStatus() === 404) {
+        if (error instanceof HttpException && error.getStatus() === 404) {
           return this.userService.createUser({
             id: sub,
             email: email,

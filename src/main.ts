@@ -5,7 +5,11 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
   app.use(
     helmet({
       contentSecurityPolicy:
@@ -13,8 +17,8 @@ async function bootstrap() {
     }),
   );
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(process.env.APP_PORT, () =>
-    console.log('App running on port', process.env.APP_PORT),
+  await app.listen(process.env.PORT || 3001, () =>
+    console.log('App running on port', process.env.PORT),
   );
 }
 bootstrap();
