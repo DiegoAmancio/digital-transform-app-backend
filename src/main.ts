@@ -17,8 +17,7 @@ async function bootstrap() {
     }),
   );
   app.useGlobalPipes(new ValidationPipe());
-  await app.listen(process.env.PORT || 3001, () =>
-    console.log('App running on port', process.env.PORT),
-  );
+  const port = process.env.PORT || 3001;
+  await app.listen(port, () => console.log('App running on port', port));
 }
 bootstrap();

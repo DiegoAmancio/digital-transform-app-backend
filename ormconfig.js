@@ -7,4 +7,10 @@ module.exports = {
     migrationsDir: './src/shared/migrations',
   },
   synchronize: process.env.DB_SYNC == 'true',
+  ssl: true,
+  extra: {
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  },
 };
