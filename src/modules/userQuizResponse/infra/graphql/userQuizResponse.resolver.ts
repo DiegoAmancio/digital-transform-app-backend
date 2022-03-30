@@ -8,6 +8,8 @@ import {
 import { GqlAuthGuard } from '@modules/auth/jwt/gql-auth.guard';
 import { IUserQuizResponseService } from '../../interfaces';
 import { I_USER_QUIZ_SERVICE } from '@shared/utils/constants';
+import { CurrentUser } from '@modules/auth/jwt/current-user.decorator';
+import { UserTokenDTO } from '@modules/user/Dto';
 
 @Resolver(() => UserQuizResponseType)
 export class UserResponseQuizResolver {
@@ -20,25 +22,30 @@ export class UserResponseQuizResolver {
   @UseGuards(GqlAuthGuard)
   async UserQuizResponse(
     @Args('quiz') id: string,
+    @CurrentUser() token: UserTokenDTO,
   ): Promise<UserQuizResponseType> {
     this.logger.log('quiz');
 
-    return this.quizService.getUserQuizResponse(id);
+    return this.quizService.getUserQuizResponse(id, token.id);
   }
   @Mutation(() => UserQuizResponseType)
   @UseGuards(GqlAuthGuard)
   async createUserQuizResponse(
     @Args('input')
     { responses, lastQuestion, quiz, complete }: UserQuizResponseInputType,
+    @CurrentUser() { id }: UserTokenDTO,
   ): Promise<UserQuizResponseType> {
     this.logger.log('Update quiz');
 
-    return await this.quizService.createUserQuizResponse({
-      responses,
-      lastQuestion,
-      quiz,
-      complete,
-    });
+    return await this.quizService.createUserQuizResponse(
+      {
+        responses,
+        lastQuestion,
+        quiz,
+        complete,
+      },
+      id,
+    );
   }
   @Mutation(() => String)
   @UseGuards(GqlAuthGuard)

@@ -16,16 +16,27 @@ export class UserQuizResponseRepository
 {
   private readonly logger = new Logger('UserQuizResponse repository');
 
-  async getUserQuizResponse(id: string): Promise<UserQuizResponse> {
-    this.logger.log('getUserQuizResponse: ' + id);
+  async getUserQuizResponse(
+    quizId: string,
+    userId: string,
+  ): Promise<UserQuizResponse> {
+    this.logger.log(
+      'getUserQuizResponse quizId: ' + quizId + ' userId: ' + userId,
+    );
 
-    const UserQuizResponse = await this.repository.findOne(id);
+    const UserQuizResponse = await this.repository.findOne({
+      where: {
+        quizId: quizId,
+        userId: userId,
+      },
+    });
 
     return UserQuizResponse;
   }
   async createAndSaveUserQuizResponse(
     data: CreateUserQuizResponseDTO,
     quiz: Quiz,
+    userId: string,
   ): Promise<UserQuizResponse> {
     this.logger.log('createAndSaveUserQuizResponse: ' + JSON.stringify(data));
     const { complete, lastQuestion, responses } = data;
@@ -36,8 +47,8 @@ export class UserQuizResponseRepository
       complete,
       lastQuestion,
       quiz,
+      userId: userId,
     });
-    console.log(userQuizResponse);
 
     return this.repository.save(userQuizResponse);
   }

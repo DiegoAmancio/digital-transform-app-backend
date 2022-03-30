@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Quiz } from '@modules/quiz/infra/database';
+import { User } from '@modules/user/infra/database';
 
 @ObjectType()
 @Entity('userQuizResponses')
@@ -36,6 +37,15 @@ export class UserQuizResponse {
   @Column()
   @UpdateDateColumn()
   created_at: Date;
+
+  @Column()
+  userId: string;
+
+  @Column()
+  quizId: string;
+
+  @ManyToOne(() => User, (user) => user.responses)
+  user: User;
 
   @ManyToOne(() => Quiz, (quiz) => quiz.responses)
   quiz: Quiz;

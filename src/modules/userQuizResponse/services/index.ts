@@ -32,6 +32,7 @@ export class UserQuizResponseService implements IUserQuizResponseService {
   ) {}
   async createUserQuizResponse(
     data: CreateUserQuizResponseDTO,
+    userId: string,
   ): Promise<UserQuizResponseDTO> {
     this.logger.log('getUserQuizResponse');
     const quiz = await this.quizService.getQuizFromDatabase(data.quiz);
@@ -39,23 +40,30 @@ export class UserQuizResponseService implements IUserQuizResponseService {
       await this.userQuizResponseRepository.createAndSaveUserQuizResponse(
         data,
         quiz,
+        userId,
       );
 
     return this.mapperUserQuizResponseEntityToDTO(UserQuizResponse);
   }
-  async getUserQuizResponse(id: string): Promise<UserQuizResponseDTO> {
+  async getUserQuizResponse(
+    quizId: string,
+    userId: string,
+  ): Promise<UserQuizResponseDTO> {
     this.logger.log('getUserQuizResponse');
     const UserQuizResponse =
-      await this.userQuizResponseRepository.getUserQuizResponse(id);
+      await this.userQuizResponseRepository.getUserQuizResponse(quizId, userId);
     if (!UserQuizResponse) {
       throw new NotFoundException(USER_QUIZ_RESPONSE_NOT_FOUND);
     }
     return this.mapperUserQuizResponseEntityToDTO(UserQuizResponse);
   }
-  async getUserQuizResponseFromDatabase(id: string): Promise<UserQuizResponse> {
+  async getUserQuizResponseFromDatabase(
+    quizId: string,
+    userId: string,
+  ): Promise<UserQuizResponse> {
     this.logger.log('getUserQuizResponseFromDatabase');
     const UserQuizResponse =
-      await this.userQuizResponseRepository.getUserQuizResponse(id);
+      await this.userQuizResponseRepository.getUserQuizResponse(quizId, userId);
     if (!UserQuizResponse) {
       throw new NotFoundException(USER_QUIZ_RESPONSE_NOT_FOUND);
     }

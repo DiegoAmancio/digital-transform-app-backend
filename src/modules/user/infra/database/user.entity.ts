@@ -4,8 +4,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryColumn,
+  OneToMany,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
+import { UserQuizResponse } from '@modules/userQuizResponse/infra/database';
 @ObjectType()
 @Entity('users')
 export class User {
@@ -34,4 +36,7 @@ export class User {
   @Column()
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => UserQuizResponse, (response) => response.userId)
+  responses: UserQuizResponse[];
 }
