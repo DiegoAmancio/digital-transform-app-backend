@@ -49,6 +49,7 @@ type UserQuizResponseType {
 type Query {
   user: User!
   question(question: String!): QuestionType!
+  getAllQuiz: [QuizType!]!
   quiz(quiz: String!): QuizType!
   UserQuizResponse(quiz: String!): UserQuizResponseType!
 }

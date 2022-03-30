@@ -37,6 +37,9 @@ export class Question {
   @UpdateDateColumn()
   updated_at: Date;
 
+  @Column()
+  quizId: string;
+
   @ManyToOne(() => Quiz, (quiz) => quiz.questions)
   quiz: Quiz;
 }

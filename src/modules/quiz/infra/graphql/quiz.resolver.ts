@@ -14,6 +14,13 @@ export class QuizResolver {
     @Inject(I_QUIZ_SERVICE)
     private readonly quizService: IQuizService,
   ) {}
+  @Query(() => [QuizType])
+  @UseGuards(GqlAuthGuard)
+  async getAllQuiz(): Promise<QuizType[]> {
+    this.logger.log('getAllQuiz');
+
+    return this.quizService.getAllQuiz();
+  }
   @Query(() => QuizType)
   @UseGuards(GqlAuthGuard)
   async quiz(@Args('quiz') id: string): Promise<QuizType> {

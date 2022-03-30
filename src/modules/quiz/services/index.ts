@@ -17,6 +17,12 @@ export class QuizService implements IQuizService {
     @InjectRepository(QuizRepository)
     private readonly quizRepository: IQuizRepository,
   ) {}
+  async getAllQuiz(): Promise<QuizDTO[]> {
+    this.logger.log('getAllQuiz');
+    const quizes = await this.quizRepository.getAllQuiz();
+
+    return quizes.map((quiz) => this.mapperQuizEntityToDTO(quiz));
+  }
   async createQuiz(data: CreateQuizDTO): Promise<QuizDTO> {
     this.logger.log('getQuiz');
     const quiz = await this.quizRepository.createAndSaveQuiz(data);
@@ -77,7 +83,7 @@ export class QuizService implements IQuizService {
               question.updated_at,
             );
           })
-        : null;
+        : [];
     const quiz: QuizDTO = {
       id,
       name,

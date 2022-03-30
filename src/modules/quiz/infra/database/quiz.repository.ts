@@ -12,6 +12,15 @@ export class QuizRepository
 {
   private readonly logger = new Logger('Quiz repository');
 
+  async getAllQuiz(): Promise<Quiz[]> {
+    this.logger.log('getAllQuiz');
+
+    const quiz = await this.repository.find({
+      relations: ['questions'],
+    });
+
+    return quiz;
+  }
   async getQuiz(id: string): Promise<Quiz> {
     this.logger.log('getQuiz: ' + id);
 

@@ -32,9 +32,15 @@ export class Quiz {
   updated_at: Date;
 
   @Field(() => QuestionType)
-  @OneToMany(() => Question, (question) => question.quiz)
+  @OneToMany(() => Question, (question) => question.quiz, {
+    nullable: true,
+    createForeignKeyConstraints: false,
+  })
   questions: Question[];
 
-  @OneToMany(() => UserQuizResponse, (response) => response.quiz)
+  @OneToMany(() => UserQuizResponse, (response) => response.quiz, {
+    nullable: true,
+    createForeignKeyConstraints: false,
+  })
   responses: UserQuizResponse[];
 }
