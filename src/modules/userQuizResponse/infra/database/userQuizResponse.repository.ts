@@ -24,14 +24,14 @@ export class UserQuizResponseRepository
       'getUserQuizResponse quizId: ' + quizId + ' userId: ' + userId,
     );
 
-    const UserQuizResponse = await this.repository.findOne({
+    const userQuizResponse = await this.repository.findOne({
       where: {
         quizId: quizId,
         userId: userId,
       },
     });
 
-    return UserQuizResponse;
+    return userQuizResponse;
   }
   async createAndSaveUserQuizResponse(
     data: CreateUserQuizResponseDTO,
@@ -41,16 +41,19 @@ export class UserQuizResponseRepository
     this.logger.log('createAndSaveUserQuizResponse: ' + JSON.stringify(data));
     const { complete, lastQuestion, responses } = data;
 
-    const userQuizResponse = this.repository.create({
-      id: uuidv4(),
-      responses,
-      complete,
-      lastQuestion,
-      quiz,
-      userId: userId,
-    });
+    const userQuizRes = await this.getUserQuizResponse(quiz.id, userId);
+    if (!userQuizRes) {
+      const userQuizResponse = this.repository.create({
+        responses,
+        complete,
+        lastQuestion,
+        quiz,
+        userId: userId,
+      });
 
-    return this.repository.save(userQuizResponse);
+      return this.repository.save(userQuizResponse);
+    }
+    return userQuizRes;
   }
   async updateUserQuizResponse(
     data: UserQuizResponseUpdateDTO,

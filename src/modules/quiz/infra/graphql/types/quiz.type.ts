@@ -22,4 +22,7 @@ export class QuizType {
 
   @Field(() => [QuestionType])
   questions: QuestionDTO[];
+
+  @Field(() => Boolean)
+  complete: boolean;
 }

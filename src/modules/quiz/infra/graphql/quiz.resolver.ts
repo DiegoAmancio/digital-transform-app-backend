@@ -6,6 +6,8 @@ import { IQuizService } from '../../interfaces';
 import { I_QUIZ_SERVICE } from '@shared/utils/constants';
 import { GqlAdmAuthGuard } from '@modules/auth/jwt/gql-auth-admin.guard';
 import { QuizInputType } from './types/quiz.input';
+import { CurrentUser } from '@modules/auth/jwt/current-user.decorator';
+import { UserTokenDTO } from '@modules/user/Dto';
 
 @Resolver(() => QuizType)
 export class QuizResolver {
@@ -16,10 +18,12 @@ export class QuizResolver {
   ) {}
   @Query(() => [QuizType])
   @UseGuards(GqlAuthGuard)
-  async getAllQuiz(): Promise<QuizType[]> {
+  async getAllQuiz(
+    @CurrentUser() userTokenData: UserTokenDTO,
+  ): Promise<QuizType[]> {
     this.logger.log('getAllQuiz');
 
-    return this.quizService.getAllQuiz();
+    return this.quizService.getAllQuiz(userTokenData.id);
   }
   @Query(() => QuizType)
   @UseGuards(GqlAuthGuard)

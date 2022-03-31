@@ -6,4 +6,5 @@ export class QuizDTO extends CreateQuizDTO {
   questions: QuestionDTO[];
   created_at: Date;
   updated_at: Date;
+  complete: boolean;
 }

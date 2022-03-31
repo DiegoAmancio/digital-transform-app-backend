@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { IQuizRepository, IQuizService } from '../interfaces';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Quiz, QuizRepository } from '../infra/database';
@@ -8,7 +8,9 @@ import {
   QUIZ_UPDATED,
   QUIZ_NOT_FOUND,
   QUIZ_DELETED,
+  I_USER_QUIZ_SERVICE,
 } from '@shared/utils/constants';
+import { IUserQuizResponseService } from '@modules/userQuizResponse/interfaces';
 
 @Injectable()
 export class QuizService implements IQuizService {
@@ -16,12 +18,26 @@ export class QuizService implements IQuizService {
   constructor(
     @InjectRepository(QuizRepository)
     private readonly quizRepository: IQuizRepository,
+    @Inject(I_USER_QUIZ_SERVICE)
+    private readonly quizService: IUserQuizResponseService,
   ) {}
-  async getAllQuiz(): Promise<QuizDTO[]> {
+  async getAllQuiz(userId: string): Promise<QuizDTO[]> {
     this.logger.log('getAllQuiz');
     const quizes = await this.quizRepository.getAllQuiz();
 
-    return quizes.map((quiz) => this.mapperQuizEntityToDTO(quiz));
+    const quizesMapped = quizes.map((quiz) => this.mapperQuizEntityToDTO(quiz));
+
+    const completes = await Promise.all(
+      quizesMapped.map((quiz) =>
+        this.quizService.getUserQuizResponse(quiz.id, userId),
+      ),
+    );
+    console.log(completes);
+
+    return quizes.map((quiz, index) => ({
+      ...quiz,
+      complete: completes[index].complete,
+    }));
   }
   async createQuiz(data: CreateQuizDTO): Promise<QuizDTO> {
     this.logger.log('getQuiz');
@@ -90,6 +106,7 @@ export class QuizService implements IQuizService {
       questions: questionsMapped,
       created_at,
       updated_at,
+      complete: null,
     };
     return quiz;
   }

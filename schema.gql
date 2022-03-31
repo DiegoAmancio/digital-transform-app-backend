@@ -35,6 +35,7 @@ type QuizType {
   created_at: DateTime!
   updated_at: DateTime!
   questions: [QuestionType!]!
+  complete: Boolean!
 }
 
 type UserQuizResponseType {

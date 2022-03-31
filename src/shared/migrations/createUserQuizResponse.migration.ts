@@ -16,7 +16,7 @@ export class CreateUserQuizResponse1647803403939 implements MigrationInterface {
 
           {
             name: 'responses',
-            type: 'varchar',
+            type: 'varchar[]',
             isNullable: false,
           },
           {

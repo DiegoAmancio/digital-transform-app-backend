@@ -4,7 +4,7 @@ import { UserResponseQuizResolver } from './infra/graphql/userQuizResponse.resol
 import { UserQuizResponseRepository } from './infra/database';
 import { UserQuizResponseService } from './services';
 import { I_USER_QUIZ_SERVICE } from '@shared/utils/constants';
-import { QuizModule } from '@modules/quiz/quiz.module';
+import { QuizRepository } from '@modules/quiz/infra/database';
 
 const UserQuizResponseServiceProvider: Provider = {
   provide: I_USER_QUIZ_SERVICE,
@@ -12,7 +12,9 @@ const UserQuizResponseServiceProvider: Provider = {
 };
 
 @Module({
-  imports: [QuizModule, TypeOrmModule.forFeature([UserQuizResponseRepository])],
+  imports: [
+    TypeOrmModule.forFeature([UserQuizResponseRepository, QuizRepository]),
+  ],
   providers: [UserResponseQuizResolver, UserQuizResponseServiceProvider],
   exports: [UserQuizResponseServiceProvider],
 })

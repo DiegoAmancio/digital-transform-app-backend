@@ -17,9 +17,9 @@ import {
   USER_QUIZ_RESPONSE_UPDATED,
   USER_QUIZ_RESPONSE_NOT_FOUND,
   USER_QUIZ_RESPONSE_DELETED,
-  I_QUIZ_SERVICE,
 } from '@shared/utils/constants';
-import { IQuizService } from '@modules/quiz/interfaces';
+import { QuizRepository } from '@modules/quiz/infra/database';
+import { IQuizRepository } from '@modules/quiz/interfaces';
 
 @Injectable()
 export class UserQuizResponseService implements IUserQuizResponseService {
@@ -27,15 +27,15 @@ export class UserQuizResponseService implements IUserQuizResponseService {
   constructor(
     @InjectRepository(UserQuizResponseRepository)
     private readonly userQuizResponseRepository: IUserQuizResponseRepository,
-    @Inject(I_QUIZ_SERVICE)
-    private readonly quizService: IQuizService,
+    @InjectRepository(QuizRepository)
+    private readonly quizRepository: IQuizRepository,
   ) {}
   async createUserQuizResponse(
     data: CreateUserQuizResponseDTO,
     userId: string,
   ): Promise<UserQuizResponseDTO> {
     this.logger.log('getUserQuizResponse');
-    const quiz = await this.quizService.getQuizFromDatabase(data.quiz);
+    const quiz = await this.quizRepository.getQuiz(data.quiz);
     const UserQuizResponse =
       await this.userQuizResponseRepository.createAndSaveUserQuizResponse(
         data,
@@ -50,12 +50,28 @@ export class UserQuizResponseService implements IUserQuizResponseService {
     userId: string,
   ): Promise<UserQuizResponseDTO> {
     this.logger.log('getUserQuizResponse');
-    const UserQuizResponse =
+    const userQuizResponse =
       await this.userQuizResponseRepository.getUserQuizResponse(quizId, userId);
-    if (!UserQuizResponse) {
-      throw new NotFoundException(USER_QUIZ_RESPONSE_NOT_FOUND);
+
+    if (!userQuizResponse) {
+      const quiz = await this.quizRepository.getQuiz(quizId);
+
+      const newUserQuizResponse =
+        await this.userQuizResponseRepository.createAndSaveUserQuizResponse(
+          {
+            responses: [],
+            lastQuestion: 0,
+            quiz: quizId,
+            complete: false,
+          },
+          quiz,
+          userId,
+        );
+      console.log(newUserQuizResponse);
+
+      return this.mapperUserQuizResponseEntityToDTO(newUserQuizResponse);
     }
-    return this.mapperUserQuizResponseEntityToDTO(UserQuizResponse);
+    return this.mapperUserQuizResponseEntityToDTO(userQuizResponse);
   }
   async getUserQuizResponseFromDatabase(
     quizId: string,
