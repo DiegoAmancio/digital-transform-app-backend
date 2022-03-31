@@ -58,10 +58,12 @@ export class UserQuizResponseRepository
   async updateUserQuizResponse(
     data: UserQuizResponseUpdateDTO,
   ): Promise<boolean> {
+    delete data.created_at;
+    delete data.updated_at;
     this.logger.log('updateUserQuizResponse: ' + JSON.stringify(data));
-    const result = await this.repository.update(data.id, data);
+    const result = await this.repository.save(data);
 
-    return result.affected > 0;
+    return result !== null && result !== undefined;
   }
   async deleteUserQuizResponse(id: string): Promise<boolean> {
     this.logger.log('deleteUserQuizResponse: ' + id);

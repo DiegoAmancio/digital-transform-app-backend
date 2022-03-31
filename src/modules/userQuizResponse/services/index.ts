@@ -95,7 +95,7 @@ export class UserQuizResponseService implements IUserQuizResponseService {
     if (!response) {
       throw new NotFoundException(USER_QUIZ_RESPONSE_NOT_FOUND);
     }
-    return USER_QUIZ_RESPONSE_DELETED;
+    return USER_QUIZ_RESPONSE_UPDATED;
   }
   async deleteUserQuizResponse(id: string): Promise<string> {
     this.logger.log('deleteUserQuizResponse');
